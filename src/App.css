@@ -1,1 +1,23 @@
+:root {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
 
+    .header {
+        align-self: flex-start;
+        width: 100%;
+    }
+
+    .body {
+        align-self: center;
+        width: 100%;
+    }
+
+    .footer {
+        align-self: flex-end;
+        width: 100%;
+    }
+}

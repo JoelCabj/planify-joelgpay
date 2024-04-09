@@ -11,7 +11,7 @@ function App() {
     <>
       <Container>
           <Routes>
-            {/* <Route path="/bookings" element={<BookingPage />} /> */}
+            <Route path="/bookings" element={<BookingPage />} />
             <Route path="/appointments" element={<AppointmentPage />} />
             <Route path="*" element={<BookingPage />} />
           </Routes>

@@ -1,0 +1,29 @@
+.accordion-body, .accordion-service {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+}
+
+.accordion-service {
+    border: 1px solid grey;
+    padding: 5px;
+    margin: 5px;
+
+
+    button {
+        width: 25%;
+        align-self: end;
+        &:focus {
+            box-shadow: none !important;
+        }
+    }
+
+    span, p {
+        margin-bottom: 10px;
+    }
+}
+
+.accordion-button:not(.collapsed) {
+    color: #6C6C6C !important;
+    background-color: #F8F8F8 !important;
+}
