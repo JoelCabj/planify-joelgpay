@@ -1,1 +1,41 @@
+:root {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        overflow: auto;
+    }
 
+    .header {
+        align-self: flex-start;
+        width: 100%;
+        margin-top: 20px;
+        span {
+            font-weight: 600;
+        }
+    }
+
+    .body {
+        align-self: center;
+        width: 100%;
+        margin-bottom: 20px;
+
+        p {
+            span {
+                font-weight: 500;
+            }
+            &.success {
+                text-align: center;
+            }
+        }
+    }
+
+    .footer {
+        align-self: flex-end;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+}

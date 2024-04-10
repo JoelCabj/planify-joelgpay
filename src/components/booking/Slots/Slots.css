@@ -1,0 +1,32 @@
+.slots {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .time-slots {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        button {
+            margin: 5px 30px;
+            color: #000;
+            background-color: #c3cfd9;
+            font-weight: 500;
+            border: none;
+
+            &.selected {
+                background-color: #565e64;
+                color: #FFF;
+            }
+
+            @media screen and (max-width: 576px) {
+                flex-basis: calc(50% - 60px);
+            }
+
+            @media screen and (min-width: 576px) {
+                margin: 5px 30px;
+                flex-basis: calc(33% - 90px);
+            }
+        }
+    }
+}
