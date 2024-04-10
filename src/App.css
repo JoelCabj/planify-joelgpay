@@ -9,6 +9,10 @@
     .header {
         align-self: flex-start;
         width: 100%;
+        margin-top: 20px;
+        span {
+            font-weight: 600;
+        }
     }
 
     .body {
@@ -19,5 +23,8 @@
     .footer {
         align-self: flex-end;
         width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
     }
 }
