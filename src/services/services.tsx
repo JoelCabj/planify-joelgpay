@@ -10,9 +10,14 @@ export interface ServiceResponse {
 }
 
 export interface Slot {
-    date: Date;
-    serviceId: string;
+    date: string;
+    serviceId?: number;
     availableTimeslots: string[];
+}
+
+export interface Appointment {
+    slot: Slot;
+    serviceId: number;
 }
 
 export enum LoadType {
@@ -49,15 +54,15 @@ const loadServices = (): Promise<Service[]> => {
     });
 };
 
-const loadSlots = (): Promise<Slot | {}> => {
+const loadSlots = (id: number): Promise<Slot[] | []> => {
     return new Promise(async (res) => {
         try {
-            const slot: Slot | {} = await readFile(LoadType.slots);
-            SLOTS = slot;
-            res(slot);
+            const slots: Slot[] | [] = await readFile(LoadType.slots);
+            SLOTS = slots;
+            res(slots.filter((s)=> s.serviceId === id));
         } catch (error) {
             console.error('Fetch file Error', error);
-            res({});
+            res([]);
         }
     });
 };
