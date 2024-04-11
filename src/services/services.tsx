@@ -17,7 +17,10 @@ export interface Slot {
 
 export interface Appointment {
     slot: Slot;
-    serviceId: number;
+    service: {
+        id: number,
+        name: string,
+    }
 }
 
 export enum LoadType {
@@ -38,6 +41,16 @@ const readFile = async (file: string): Promise<any> => {
         return {};
     }
 
+}
+
+const getAppointments = (): Appointment[] => {
+    const appointments: Appointment[] = [];
+    const local = localStorage.getItem('app_appointments');
+    if (local) {
+        const mysApp: Appointment[] = JSON.parse(local);
+        appointments.push(...mysApp)
+    }
+    return appointments;
 }
 
 const loadServices = (): Promise<Service[]> => {
@@ -68,4 +81,4 @@ const loadSlots = (id: number): Promise<Slot[] | []> => {
 };
 
 
-export { loadServices, loadSlots };
+export { loadServices, loadSlots, getAppointments };
