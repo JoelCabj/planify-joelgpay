@@ -3,10 +3,16 @@ import { Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 import { AppointmentPage, BookingPage } from './pages';
-import AppNavBar from './components/AppNavBar/AppNavBar';
+import AppNavBar, {AppRoute} from './components/AppNavBar/AppNavBar';
+import { NavBarIcons } from './components/AppNavBar/NavBarIcons';
 
 
 function App() {
+  const links: AppRoute[] = [
+    {label: 'Reservar', link: 'bookings', icon: NavBarIcons.CupHotFill},
+    {label: 'Mis Turnos', link: 'appointments', icon: NavBarIcons.CupHotFill},
+  ];
+
   return (
     <>
       <Container>
@@ -16,7 +22,7 @@ function App() {
             <Route path="*" element={<BookingPage />} />
           </Routes>
       </Container>
-      <AppNavBar></AppNavBar>
+      <AppNavBar routes={links}></AppNavBar>
     </>
   )
 }
