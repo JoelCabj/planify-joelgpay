@@ -12,18 +12,18 @@ interface AppNavLinkProps {
 }
 
 
-const AppNavLink: React.FC<AppNavLinkProps> = (props: AppNavLinkProps = {
-        icon: NavBarIcons.Default,
-        label: 'Default',
-        link: '/',
-        size: 20,
+const AppNavLink: React.FC<AppNavLinkProps> = ({
+        icon = NavBarIcons.Default,
+        label = 'Default',
+        link = '/',
+        size = 20,
     }) => {
-        const { [props.icon]: Icon } = Icons;
+        const { [icon]: Icon } = Icons;
         return (
             <>
-                <Link className='nav-link navbar-button' to={props.link}>
-                    <Icon className='icon' size={props.size}></Icon>
-                    { props.label }
+                <Link className='nav-link navbar-button' to={link}>
+                    <Icon className='icon' size={size}></Icon>
+                    { label }
                 </Link>
             </>
         );
