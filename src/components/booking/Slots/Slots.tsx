@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Slot } from '../../../services/services';
+import { Appointment, Slot } from '../../../services/services';
 import { Button } from 'react-bootstrap';
+import { getAppointments } from "../../../services/services";
 import './Slots.css';
 
 
@@ -13,6 +14,7 @@ interface SlotsProps {
 const Slots: React.FC<SlotsProps> = ({slots, slot, slotSelected}) => {
     const SLOTS: Slot[] = slots ?? [];
     let [selectedTime, setSelectedTime] = useState<string>('');
+    let [localAppointments, setLocalAppointments] = useState<Appointment[] | []>([]);
 
 
     const timeHandler = (key: string) => {
@@ -23,9 +25,15 @@ const Slots: React.FC<SlotsProps> = ({slots, slot, slotSelected}) => {
     }
 
     const slotButton = (date:string,id: string, time: string) => {
+        let disabled = false;
         const key = `${date}#${id}#${time}`;
+        const reserved: string[] = localAppointments
+            .filter( a => a.service.id === Number(id)).map( i => i?.slot?.availableTimeslots[0] ?? '00')
+        if (reserved.length > 0) {
+            disabled = reserved.indexOf(time) >= 0;
+        }
         return (
-            <Button variant='secondary' key={key} data-id={key} className={`${selectedTime === key && 'selected'}`} onClick={() => timeHandler(key)}>{time}</Button>
+            <Button variant='secondary' key={key} data-id={key} className={`${selectedTime === key && 'selected'}`} onClick={() => timeHandler(key)} disabled={disabled}>{time}</Button>
         )
     }
 
@@ -45,6 +53,12 @@ const Slots: React.FC<SlotsProps> = ({slots, slot, slotSelected}) => {
             timeHandler(slot);
         }
     }, [slot]);
+
+    useEffect(() => {
+        console.log('Slot useEffect() null');
+        const appointments = getAppointments();
+        setLocalAppointments(appointments);
+    }, []);
 
     return (
         <>
