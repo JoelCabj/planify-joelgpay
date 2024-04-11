@@ -11,15 +11,18 @@ const AppointmentPage: React.FC<any> = () => {
     }, []);
 
     const renderItem = (a: Appointment) => {
-
+        const {slot, service} = a;
+        const time = slot.availableTimeslots[0];
+        const key = `${slot.date}#${service.id}#${time}`;
         return (
             <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-start"
+                key={key}
             >
                 <div className="ms-2 me-auto">
-                <div className="fw-bold">{a.service.name}</div>
-                {a.slot.date} - {a.slot.availableTimeslots[0] ?? '--'}
+                <div className="fw-bold">{service.name}</div>
+                {slot.date} - {time ?? '--'}
                 </div>
             </ListGroup.Item>
         )
