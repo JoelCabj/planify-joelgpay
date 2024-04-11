@@ -29,10 +29,10 @@ const Confirmation: React.FC<SlotsProps> = ({appointment, service}) => {
     }, [service])
 
     return (
-        <>
+        <div className='appointments'>
             <p>Servicio: <span>{name}</span></p>
             <p>Fecha: <span>{date} {slot}</span></p>
-        </>
+        </div>
     )
 }
 

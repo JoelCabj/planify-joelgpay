@@ -25,12 +25,12 @@ const AppointmentPage: React.FC<any> = () => {
         )
     }
     return (
-        <>
+        <div className='appointments'>
             <h5>Turnos</h5>
             <ListGroup as="ol">
                 {appointments.map( a => renderItem(a))}
             </ListGroup>
-        </>
+        </div>
     )
 }
 

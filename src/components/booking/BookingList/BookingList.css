@@ -5,7 +5,7 @@
 }
 
 .accordion-service {
-    border: 1px solid grey;
+    border: 1px solid #DEE2E6;
     padding: 5px;
     margin: 5px;
 
@@ -16,9 +16,13 @@
         &:focus {
             box-shadow: none !important;
         }
+
+        @media screen and (max-width: 574px) {
+            width: 40%;
+        }
     }
 
-    span, p {
+    h5, p {
         margin-bottom: 10px;
     }
 }
