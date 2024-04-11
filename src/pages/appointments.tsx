@@ -11,9 +11,15 @@ const AppointmentPage: React.FC<any> = () => {
     }, []);
 
     const renderItem = (a: Appointment) => {
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
         const {slot, service} = a;
         const time = slot.availableTimeslots[0];
         const key = `${slot.date}#${service.id}#${time}`;
+        const date = new Date(slot.date).toLocaleDateString('es-AR', options);
         return (
             <ListGroup.Item
                 as="li"
@@ -22,7 +28,7 @@ const AppointmentPage: React.FC<any> = () => {
             >
                 <div className="ms-2 me-auto">
                 <div className="fw-bold">{service.name}</div>
-                {slot.date} - {time ?? '--'}
+                El {date} a las {time ?? '--'}
                 </div>
             </ListGroup.Item>
         )

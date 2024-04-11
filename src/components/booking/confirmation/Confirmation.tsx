@@ -17,7 +17,13 @@ const Confirmation: React.FC<SlotsProps> = ({appointment, service}) => {
 
     useEffect(() => {
         if (appointment) {
-            setDate(appointment.slot.date);
+            const options: Intl.DateTimeFormatOptions = {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric'
+            };
+            const aDate = new Date(appointment.slot.date);
+            setDate(aDate.toLocaleDateString('es-Ar', options));
             setSlot(appointment.slot.availableTimeslots[0] ?? '');
         }
     }, [appointment])

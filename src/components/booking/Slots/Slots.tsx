@@ -38,10 +38,17 @@ const Slots: React.FC<SlotsProps> = ({slots, slot, slotSelected}) => {
     }
 
     const showSlot = (s: Slot) => {
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        const date = new Date(s.date).toLocaleDateString('es-Ar', options);
         const serviceId = s.serviceId ? Number(s.serviceId) : 0;
         return (
             <div className='slots' key={s.date}>
-                <span>{ s.date }</span>
+                <span>{ date }</span>
                 <div className='time-slots'>{ s.availableTimeslots.map((t) => slotButton(s.date, serviceId.toString(), t)) }</div>
             </div>
         )
@@ -55,7 +62,6 @@ const Slots: React.FC<SlotsProps> = ({slots, slot, slotSelected}) => {
     }, [slot]);
 
     useEffect(() => {
-        console.log('Slot useEffect() null');
         const appointments = getAppointments();
         setLocalAppointments(appointments);
     }, []);
