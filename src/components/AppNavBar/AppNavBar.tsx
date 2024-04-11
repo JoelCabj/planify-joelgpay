@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar } from 'react-bootstrap';
 
 import AppNavLink  from "./AppNavLink";
 import { NavBarIcons } from './NavBarIcons';
 import './AppNavBar.css'
 
-interface NavBarProps {
-    //
+export interface AppRoute {
+    label: string,
+    link: string,
+    icon: NavBarIcons
 }
 
-const AppNavBar: React.FC<NavBarProps> = (props) => {
+interface NavBarProps {
+    routes: AppRoute[]
+}
+
+const AppNavBar: React.FC<NavBarProps> = ({routes}) => {
+
+    const [links, setLinks] = useState<AppRoute[]>([]);
+
+    const renderLink = (item: AppRoute) => {
+        const {icon, label, link} = item;
+        const key = `${link}#${label}`;
+        return (
+            <AppNavLink icon={icon} label={label} link={link} key={key}></AppNavLink>
+        )
+    }
+
+    useEffect(() => {
+        if (routes) {
+            setLinks(routes);
+        }
+    }, [routes]);
+
     return (
         <>
             <Navbar className="app-navbar bg-body-tertiary" fixed="bottom">
-                <AppNavLink icon={NavBarIcons.CupHotFill} label='Reservar' link='bookings'></AppNavLink>
-                <AppNavLink icon={NavBarIcons.CupHotFill} label='Mis Turnos' link='appointments'></AppNavLink>
+                {links.map( l => renderLink(l))}
             </Navbar>
         </>
     );

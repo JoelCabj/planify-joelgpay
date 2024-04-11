@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  planify-joelgpay:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname:
+      "planify-joelgpay"
+    working_dir: /srv/app
+    command: "npm run start"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/srv/app
+      - /srv/app/node_modules/

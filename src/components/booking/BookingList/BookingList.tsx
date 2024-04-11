@@ -44,7 +44,7 @@ const BookingList: React.FC<BookListProps> = ({services, service, serviceSelecte
     const renderService = (service: Service) => {
         return (
             <div className='accordion-service' key={service.id}>
-                <span>{ service.name } </span>
+                <h5>{ service.name }</h5>
                 <p>{ service.description } </p>
                 <Button variant="secondary" onClick={chooseService} data-id={service.id} disabled={selected?.id === service.id}>
                     {selected?.id === service.id ? 'Seleccionado' : 'Seleccionar'}

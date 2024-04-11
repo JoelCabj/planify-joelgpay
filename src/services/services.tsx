@@ -1,3 +1,6 @@
+
+const DEV = import.meta.env.DEV;
+const BASE_URL = DEV ? 'public/' : '';
 export interface Service {
     id: number;
     name: string;
@@ -17,16 +20,13 @@ export interface Slot {
 
 export interface Appointment {
     slot: Slot;
-    serviceId: number;
-}
-
-export enum LoadType {
-    slots = 'src/services/data/slots.txt',
-    services = 'src/services/data/services.txt'
+    service: {
+        id: number,
+        name: string,
+    }
 }
 
 let SERVICES: Service[] = [];
-let SLOTS: Slot | {} = {};
 
 const readFile = async (file: string): Promise<any> => {
     try {
@@ -40,11 +40,22 @@ const readFile = async (file: string): Promise<any> => {
 
 }
 
+const getAppointments = (): Appointment[] => {
+    const appointments: Appointment[] = [];
+    const local = localStorage.getItem('app_appointments');
+    if (local) {
+        const mysApp: Appointment[] = JSON.parse(local);
+        appointments.push(...mysApp)
+    }
+    return appointments;
+}
+
 const loadServices = (): Promise<Service[]> => {
     return new Promise(async (res) => {
         try {
+            const URL = `${BASE_URL}data/services.txt`;
             let services: ServiceResponse;
-            services = await readFile(LoadType.services);
+            services = await readFile(URL);
             SERVICES = services.services;
             res(SERVICES);
         } catch (error) {
@@ -57,8 +68,8 @@ const loadServices = (): Promise<Service[]> => {
 const loadSlots = (id: number): Promise<Slot[] | []> => {
     return new Promise(async (res) => {
         try {
-            const slots: Slot[] | [] = await readFile(LoadType.slots);
-            SLOTS = slots;
+            const URL = `${BASE_URL}data/slots.txt`;
+            const slots: Slot[] | [] = await readFile(URL);
             res(slots.filter((s)=> s.serviceId === id));
         } catch (error) {
             console.error('Fetch file Error', error);
@@ -68,4 +79,4 @@ const loadSlots = (id: number): Promise<Slot[] | []> => {
 };
 
 
-export { loadServices, loadSlots };
+export { loadServices, loadSlots, getAppointments };

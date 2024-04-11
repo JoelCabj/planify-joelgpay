@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { loadServices, loadSlots, Service, Slot, Appointment } from '../services/services';
+import { loadServices, loadSlots, Service, Slot, Appointment, getAppointments } from '../services/services';
 
 import BookingList from '../components/booking/BookingList/BookingList';
 import Slots from '../components/booking/Slots/Slots';
@@ -14,7 +14,10 @@ const BookingPage: React.FC<any> = () => {
             date: '',
             availableTimeslots: []
         },
-        serviceId: 0
+        service: {
+            id: 0,
+            name: ''
+        }
     };
 
     const [services, setServices] = useState<Service[] | []>();
@@ -77,27 +80,21 @@ const BookingPage: React.FC<any> = () => {
     }
 
     const slotHandler = (key: string) => {
-        const [date, service, slot ] = key.split('#');
+        const [date, serviceId, slot ] = key.split('#');
+        const service = services?.filter( s => s.id === Number(serviceId))[0];
         setSlot(key);
         appointment = {
             slot: {
                 date,
                 availableTimeslots: [slot]
             },
-            serviceId: Number(service),
+            service:  {
+                id: Number(serviceId),
+                name: service?.name ?? ''
+            },
         }
 
         setAppointment(appointment);
-    }
-
-    const getAppointments = (): Appointment[] => {
-        const appointments: Appointment[] = [];
-        const local = localStorage.getItem('app_appointments');
-        if (local) {
-            const mysApp: Appointment[] = JSON.parse(local);
-            appointments.push(...mysApp)
-        }
-        return appointments;
     }
 
     const storeAppointment = (): void => {
